@@ -17,3 +17,16 @@
     ```shell
     gatsby develop
     ```
+
+4. **Test your changes locally**
+
+    ```shell
+    gatsby build
+    gatsby serve
+    ```
+
+4. **Deploy to GitHub Pages**
+
+    ```shell
+    npm run deploy
+    ```
