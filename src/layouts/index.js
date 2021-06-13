@@ -14,6 +14,6 @@ const theme = responsiveFontSizes(
   })
 );
 
-export default function ({ children }) {
+export default function IndexLayout({ children }) {
   return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
 }

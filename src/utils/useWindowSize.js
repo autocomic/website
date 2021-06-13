@@ -1,13 +1,13 @@
 import { useState, useLayoutEffect } from "react";
 import debounce from "./debounce";
 
-export default function useDocumentSize() {
+export default function useWindowSize() {
   const [size, setSize] = useState({ width: 0, height: 0 });
   useLayoutEffect(() => {
     const updateSize = debounce(() => {
       setSize({
-        width: document.documentElement.scrollWidth,
-        height: document.documentElement.scrollHeight,
+        width: window.innerWidth,
+        height: window.innerHeight,
       });
     }, 100);
     window.addEventListener("resize", updateSize);

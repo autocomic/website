@@ -1,7 +1,13 @@
 import React from "react";
-import { withStyles, makeStyles } from "@material-ui/core/styles";
-import { Typography, TextField, Button } from "@material-ui/core";
-import useDocumentSize from "../utils/useDocumentSize";
+import { makeStyles } from "@material-ui/core/styles";
+import { Typography, Button } from "@material-ui/core";
+
+import useWindowSize from "../utils/useWindowSize";
+// import EmailInput from "../components/EmailInput";
+import Feature from "../components/Feature";
+import detection from "../images/detection.png";
+import final from "../images/final.png";
+import translations from "../images/translations.png";
 
 const useStyles = makeStyles({
   background: {
@@ -16,8 +22,9 @@ const useStyles = makeStyles({
   container: {
     width: "100%",
     height: "100%",
-    maxWidth: 1920,
-    maxHeight: 1080,
+    // TODO: Figure out the best way to handle UHD displays. Setting maxWidth and maxHeight doesn't look great.
+    // maxWidth: 1920,
+    // maxHeight: 1080,
     color: "white",
     display: "flex",
     flexDirection: "column",
@@ -60,41 +67,37 @@ const useStyles = makeStyles({
     justifyContent: "center",
     gap: 10,
   },
-});
-
-const EmailInput = withStyles({
-  root: {
-    "& label": {
-      fontSize: 14,
-      fontWeight: 300,
-      color: "white",
+  bottomContainer: {
+    width: "100%",
+    paddingTop: 20,
+    paddingBottom: 20,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  featuresContainer: {
+    "@media (max-width: 1119px)": {
+      marginTop: "auto",
+      marginBottom: "auto",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+      gap: 20,
     },
-    "& label.Mui-focused": {
-      color: "white",
-    },
-    "& .MuiInput-underline:after": {
-      borderBottomColor: "white",
-    },
-    "& .MuiOutlinedInput-root": {
-      fontSize: 14,
-      fontWeight: 300,
-      color: "white",
-      "& fieldset": {
-        borderColor: "white",
-      },
-      "&:hover fieldset": {
-        borderColor: "white",
-      },
-      "&.Mui-focused fieldset": {
-        borderColor: "white",
-      },
+    "@media (min-width: 1120px)": {
+      marginTop: "auto",
+      marginBottom: "auto",
+      display: "flex",
+      justifyContent: "center",
+      gap: 60,
     },
   },
-})(TextField);
+});
 
 const IndexPage = () => {
   const classes = useStyles();
-  const { width: documentWidth, height: documentHeight } = useDocumentSize();
+  const { width: documentWidth, height: documentHeight } = useWindowSize();
   let videoHeight = 0;
   let videoWidth = 0;
   if (documentWidth >= 480) {
@@ -110,7 +113,7 @@ const IndexPage = () => {
         <div className={classes.container}>
           <h1 className={classes.logo}>Autocomic</h1>
           <Typography variant="h5" className={classes.title}>
-            A very cool and pog scanlation assistant
+            The fastest and smartest scanlation tool
           </Typography>
           <div>
             <iframe
@@ -118,9 +121,9 @@ const IndexPage = () => {
               height={videoHeight}
               src="https://www.youtube.com/embed/uvrhdd0AzqY"
               title="YouTube video player"
-              frameborder="0"
+              frameBorder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
+              allowFullScreen={true}
             ></iframe>
           </div>
           <div className={classes.textContainer}>
@@ -132,13 +135,15 @@ const IndexPage = () => {
               please sign up below.
             </Typography>
             <form className={classes.emailInputContainer}>
-              <EmailInput variant="outlined" size="small" label="Email" />
+              {/* <EmailInput variant="outlined" size="small" label="Email" /> */}
               <Button
                 variant="outlined"
                 classes={{
                   root: classes.buttonRoot,
                   label: classes.buttonLabel,
                 }}
+                href="https://form.asana.com/?k=2pHK2JeI9o-ZqdwEFJAaNQ&d=1146732345931777"
+                target="_blank"
               >
                 Join
               </Button>
@@ -146,7 +151,21 @@ const IndexPage = () => {
           </div>
         </div>
       </div>
-      {/* <div>Detects and cleans bubbles and gives translation suggestions.</div> */}
+      <div className={classes.bottomContainer}>
+        <div className={classes.featuresContainer}>
+          <Feature width={300} image={detection} text="Detects bubbles" />
+          <Feature
+            width={380}
+            image={translations}
+            text="Generates translations"
+          />
+          <Feature
+            width={300}
+            image={final}
+            text="Cleans bubbles and replaces text"
+          />
+        </div>
+      </div>
     </>
   );
 };
