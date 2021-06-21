@@ -14,5 +14,4 @@ module.exports = {
       },
     },
   ],
-  pathPrefix: "/website",
 };
